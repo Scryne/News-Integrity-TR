@@ -1,0 +1,100 @@
+PLAN
+  urls     : 3
+    - https://x.com/bpthaber/status/2078065685536579776
+    - https://x.com/CrafterMind/status/2078156154262450467
+    - https://x.com/sama/status/2077817060068057493
+  services : both
+  interval : 60s between external calls
+  UA       : Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36
+  redirects: NOT auto-followed (Location/Refresh observed directly)
+
+========== WAYBACK SPN2 (anonymous) :: https://x.com/bpthaber/status/2078065685536579776 ==========
+
+--- [wayback submit] 2026-07-17T17:49:01Z ---
+  request : POST https://web.archive.org/save/
+  status  : 401 UNAUTHORIZED
+  final   : https://web.archive.org/save/
+  elapsed : 12.89s
+  header  : content-type: application/json
+  header  : content-length: 60
+  header  : server: nginx
+  cookies : set-cookie x1
+  body_len: 60
+  excerpt : {"message":"You need to be logged in to use Save Page Now."}
+  json    : {'message': 'You need to be logged in to use Save Page Now.'}
+
+... politeness sleep 60s ...
+
+========== ARCHIVE.TODAY :: https://x.com/bpthaber/status/2078065685536579776 ==========
+  warm-up GET failed: [WinError 10060] Baðlanýlan uygun olarak belli bir süre içinde yanýt vermediðinden veya kurulan
+baðlantý baðlanýlan ana bilgisayar yanýt vermediðinden bir baðlantý kurulamadý
+  submit failed: [WinError 10060] Baðlanýlan uygun olarak belli bir süre içinde yanýt vermediðinden veya kurulan
+baðlantý baðlanýlan ana bilgisayar yanýt vermediðinden bir baðlantý kurulamadý
+
+... politeness sleep 60s ...
+
+========== WAYBACK SPN2 (anonymous) :: https://x.com/CrafterMind/status/2078156154262450467 ==========
+
+--- [wayback submit] 2026-07-17T17:52:20Z ---
+  request : POST https://web.archive.org/save/
+  status  : 401 UNAUTHORIZED
+  final   : https://web.archive.org/save/
+  elapsed : 12.76s
+  header  : content-type: application/json
+  header  : content-length: 60
+  header  : server: nginx
+  body_len: 60
+  excerpt : {"message":"You need to be logged in to use Save Page Now."}
+  json    : {'message': 'You need to be logged in to use Save Page Now.'}
+
+... politeness sleep 60s ...
+
+========== ARCHIVE.TODAY :: https://x.com/CrafterMind/status/2078156154262450467 ==========
+  warm-up GET failed: [WinError 10060] Baðlanýlan uygun olarak belli bir süre içinde yanýt vermediðinden veya kurulan
+baðlantý baðlanýlan ana bilgisayar yanýt vermediðinden bir baðlantý kurulamadý
+  submit failed: [WinError 10060] Baðlanýlan uygun olarak belli bir süre içinde yanýt vermediðinden veya kurulan
+baðlantý baðlanýlan ana bilgisayar yanýt vermediðinden bir baðlantý kurulamadý
+
+... politeness sleep 60s ...
+
+========== WAYBACK SPN2 (anonymous) :: https://x.com/sama/status/2077817060068057493 ==========
+
+--- [wayback submit] 2026-07-17T17:55:39Z ---
+  request : POST https://web.archive.org/save/
+  status  : 401 UNAUTHORIZED
+  final   : https://web.archive.org/save/
+  elapsed : 12.91s
+  header  : content-type: application/json
+  header  : content-length: 60
+  header  : server: nginx
+  body_len: 60
+  excerpt : {"message":"You need to be logged in to use Save Page Now."}
+  json    : {'message': 'You need to be logged in to use Save Page Now.'}
+
+... politeness sleep 60s ...
+
+========== ARCHIVE.TODAY :: https://x.com/sama/status/2077817060068057493 ==========
+  warm-up GET failed: [WinError 10060] Baðlanýlan uygun olarak belli bir süre içinde yanýt vermediðinden veya kurulan
+baðlantý baðlanýlan ana bilgisayar yanýt vermediðinden bir baðlantý kurulamadý
+  submit failed: [WinError 10060] Baðlanýlan uygun olarak belli bir süre içinde yanýt vermediðinden veya kurulan
+baðlantý baðlanýlan ana bilgisayar yanýt vermediðinden bir baðlantý kurulamadý
+
+
+================= PASTE THIS BACK =================
+- wayback        no_job_id      https://x.com/bpthaber/status/2078065685536579776
+    notes       : ['message: You need to be logged in to use Save Page Now.']
+- archive_today  error          https://x.com/bpthaber/status/2078065685536579776
+    notes       : ['warmup failed: [WinError 10060] Baðlanýlan uygun olarak belli bir süre içinde yanýt vermediðinden veya kurulan\r\nbaðlantý baðlanýlan ana bilgisayar yanýt vermediðinden bir baðlantý kurulamadý', '[WinError 10060] Baðlanýlan uygun olarak belli bir süre içinde yanýt vermediðinden veya kurulan\r\nbaðlantý baðlanýlan ana bilgisayar yanýt vermediðinden bir baðlantý kurulamadý']
+- wayback        no_job_id      https://x.com/CrafterMind/status/2078156154262450467
+    notes       : ['message: You need to be logged in to use Save Page Now.']
+- archive_today  error          https://x.com/CrafterMind/status/2078156154262450467
+    notes       : ['warmup failed: [WinError 10060] Baðlanýlan uygun olarak belli bir süre içinde yanýt vermediðinden veya kurulan\r\nbaðlantý baðlanýlan ana bilgisayar yanýt vermediðinden bir baðlantý kurulamadý', '[WinError 10060] Baðlanýlan uygun olarak belli bir süre içinde yanýt vermediðinden veya kurulan\r\nbaðlantý baðlanýlan ana bilgisayar yanýt vermediðinden bir baðlantý kurulamadý']
+- wayback        no_job_id      https://x.com/sama/status/2077817060068057493
+    notes       : ['message: You need to be logged in to use Save Page Now.']
+- archive_today  error          https://x.com/sama/status/2077817060068057493
+    notes       : ['warmup failed: [WinError 10060] Baðlanýlan uygun olarak belli bir süre içinde yanýt vermediðinden veya kurulan\r\nbaðlantý baðlanýlan ana bilgisayar yanýt vermediðinden bir baðlantý kurulamadý', '[WinError 10060] Baðlanýlan uygun olarak belli bir süre içinde yanýt vermediðinden veya kurulan\r\nbaðlantý baðlanýlan ana bilgisayar yanýt vermediðinden bir baðlantý kurulamadý']
+
+Also tell me:
+  * how many archive.today submits succeeded WITHOUT a challenge (X of N)
+  * any CAPTCHA / Cloudflare 'Just a moment' page you saw
+  * whether 60s spacing felt sufficient or you got throttled/429

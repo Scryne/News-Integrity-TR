@@ -1,0 +1,91 @@
+{
+  "tool": "nit-spikes-helper",
+  "spike": "S1",
+  "exported_at": "2026-07-17T16:41:31.390Z",
+  "pages": [
+    {
+      "url": "https://x.com/home",
+      "at": "2026-07-17T16:39:32.910Z",
+      "count": 4,
+      "report": {
+        "probe_version": "s1-0.3",
+        "page_url": "https://x.com/home",
+        "captured_at": "2026-07-17T16:39:32.704Z",
+        "rows": [
+          {
+            "i": 0,
+            "ok_rest_id": false,
+            "handle": "umitozdag",
+            "rest_id": null,
+            "followers": null,
+            "tweet_id": "2078156524179066947",
+            "created_at": "2026-07-17T16:35:00.000Z",
+            "quoted": "",
+            "ancestor": null,
+            "followers_from": "none",
+            "author_path": null,
+            "tweet_path": null,
+            "fiber_suffix": "v9qip2xayda",
+            "quoted_author": null,
+            "retweeted_author": null,
+            "reply_to": null
+          },
+          {
+            "i": 1,
+            "ok_rest_id": true,
+            "handle": "2_sayfaofficial",
+            "rest_id": "227017875",
+            "followers": 569758,
+            "tweet_id": "2078156430238986468",
+            "created_at": "2026-07-17T16:34:37.000Z",
+            "quoted": "",
+            "ancestor": null,
+            "followers_from": "legacy",
+            "author_path": "props@ancestor+13.memoizedProps.tweet.entities.media[0].additional_media_info.source_user.user_results.result",
+            "tweet_path": null,
+            "fiber_suffix": "v9qip2xayda",
+            "quoted_author": null,
+            "retweeted_author": null,
+            "reply_to": null
+          },
+          {
+            "i": 2,
+            "ok_rest_id": false,
+            "handle": "ww3mediaa",
+            "rest_id": null,
+            "followers": null,
+            "tweet_id": "2078155267406229600",
+            "created_at": "2026-07-17T16:30:00.000Z",
+            "quoted": "",
+            "ancestor": null,
+            "followers_from": "none",
+            "author_path": null,
+            "tweet_path": null,
+            "fiber_suffix": "v9qip2xayda",
+            "quoted_author": null,
+            "retweeted_author": null,
+            "reply_to": null
+          },
+          {
+            "i": 3,
+            "ok_rest_id": true,
+            "handle": "ssportplustr",
+            "rest_id": "998912105737801728",
+            "followers": 112039,
+            "tweet_id": "2078155072098247078",
+            "created_at": "2026-07-17T16:29:14.000Z",
+            "quoted": "",
+            "ancestor": null,
+            "followers_from": "legacy",
+            "author_path": "props@ancestor+13.memoizedProps.tweet.entities.media[0].additional_media_info.source_user.user_results.result",
+            "tweet_path": null,
+            "fiber_suffix": "v9qip2xayda",
+            "quoted_author": null,
+            "retweeted_author": null,
+            "reply_to": null
+          }
+        ]
+      }
+    }
+  ]
+}

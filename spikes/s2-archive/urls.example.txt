@@ -1,0 +1,6 @@
+# S2 probe input — one public X post URL per line. Lines starting with # are ignored.
+# Keep it to 2-3 URLs. Use posts you are already looking at; do not assemble bulk lists.
+# Replace these with real URLs before running (these are placeholders and will 404):
+#
+# https://x.com/SomeNewsHandle/status/1811111111111111111
+# https://x.com/AnotherHandle/status/1822222222222222222

@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "NIT S3 spike — captureVisibleTab + crop",
+  "version": "0.1.0",
+  "description": "THROWAWAY spike: verify getBoundingClientRect x devicePixelRatio crop alignment across zoom/DPI variants.",
+  "permissions": ["downloads"],
+  "host_permissions": ["https://x.com/*", "https://twitter.com/*"],
+  "background": { "service_worker": "background.js" },
+  "content_scripts": [
+    {
+      "matches": ["https://x.com/*", "https://twitter.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

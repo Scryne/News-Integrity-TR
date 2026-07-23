@@ -1,0 +1,109 @@
+{
+  "tool": "nit-spikes-helper",
+  "spike": "S1",
+  "exported_at": "2026-07-18T17:41:41.532Z",
+  "pages": [
+    {
+      "url": "https://x.com/whosb3rkay",
+      "at": "2026-07-18T17:41:10.480Z",
+      "count": 5,
+      "report": {
+        "probe_version": "s1-0.3",
+        "page_url": "https://x.com/whosb3rkay",
+        "captured_at": "2026-07-18T17:41:10.308Z",
+        "rows": [
+          {
+            "i": 0,
+            "ok_rest_id": true,
+            "handle": "t31kx",
+            "rest_id": "252474986",
+            "followers": 7045,
+            "tweet_id": "2029775479167979702",
+            "created_at": "2026-03-06T04:26:00.000Z",
+            "quoted": "",
+            "ancestor": null,
+            "followers_from": "legacy",
+            "author_path": "props@ancestor+13.memoizedProps.tweet.entities.media[0].additional_media_info.source_user.user_results.result",
+            "tweet_path": null,
+            "fiber_suffix": "izisbj6tu2l",
+            "quoted_author": null,
+            "retweeted_author": null,
+            "reply_to": null
+          },
+          {
+            "i": 1,
+            "ok_rest_id": true,
+            "handle": "anil_ozturkk",
+            "rest_id": "408699942",
+            "followers": 6113,
+            "tweet_id": "2019090759404646880",
+            "created_at": "2026-02-04T16:48:44.000Z",
+            "quoted": "",
+            "ancestor": null,
+            "followers_from": "legacy",
+            "author_path": "props@ancestor+13.memoizedProps.tweet.entities.media[0].additional_media_info.source_user.user_results.result",
+            "tweet_path": null,
+            "fiber_suffix": "izisbj6tu2l",
+            "quoted_author": null,
+            "retweeted_author": null,
+            "reply_to": null
+          },
+          {
+            "i": 2,
+            "ok_rest_id": true,
+            "handle": "HurriyetUlan",
+            "rest_id": "1630311012757897222",
+            "followers": 17734,
+            "tweet_id": "2016538839683068322",
+            "created_at": "2026-01-28T15:48:19.000Z",
+            "quoted": "",
+            "ancestor": null,
+            "followers_from": "legacy",
+            "author_path": "props@ancestor+13.memoizedProps.tweet.entities.media[0].additional_media_info.source_user.user_results.result",
+            "tweet_path": null,
+            "fiber_suffix": "izisbj6tu2l",
+            "quoted_author": null,
+            "retweeted_author": null,
+            "reply_to": null
+          },
+          {
+            "i": 3,
+            "ok_rest_id": true,
+            "handle": "MustafaB49",
+            "rest_id": "1342522530964373506",
+            "followers": 28929,
+            "tweet_id": "2016251143555350934",
+            "created_at": "2026-01-27T20:45:07.000Z",
+            "quoted": "",
+            "ancestor": null,
+            "followers_from": "legacy",
+            "author_path": "props@ancestor+13.memoizedProps.tweet.entities.media[0].additional_media_info.source_user.user_results.result",
+            "tweet_path": null,
+            "fiber_suffix": "izisbj6tu2l",
+            "quoted_author": null,
+            "retweeted_author": null,
+            "reply_to": null
+          },
+          {
+            "i": 4,
+            "ok_rest_id": true,
+            "handle": "tiginoloji",
+            "rest_id": "1896375123437072384",
+            "followers": 4238,
+            "tweet_id": "2013652681139601758",
+            "created_at": "2026-01-20T16:39:45.000Z",
+            "quoted": "",
+            "ancestor": null,
+            "followers_from": "legacy",
+            "author_path": "props@ancestor+13.memoizedProps.tweet.entities.media[0].additional_media_info.source_user.user_results.result",
+            "tweet_path": null,
+            "fiber_suffix": "izisbj6tu2l",
+            "quoted_author": null,
+            "retweeted_author": null,
+            "reply_to": null
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+# --- secrets & local config ---
+.env
+.env.*
+!.env.example
+
+# --- data: SQLite DB + evidence tree (ARCHITECTURE §4.1) ---
+data/
+*.db
+*.db-wal
+*.db-shm
+
+# --- python ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# --- node / extension build (monorepo) ---
+node_modules/
+dist/
+
+# --- OS / editor ---
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

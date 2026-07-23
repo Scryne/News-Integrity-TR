@@ -1,0 +1,150 @@
+{
+  "version": "1.0",
+  "groups": {
+    "H": "Haber Manipülasyonu",
+    "E": "Etkileşim Manipülasyonu",
+    "I": "İçerik İstismarı"
+  },
+  "categories": [
+    { "key": "news", "label": "Haber Sayfası" },
+    { "key": "magazine", "label": "Magazin" },
+    { "key": "agenda", "label": "Gündem" },
+    { "key": "viral", "label": "Viral İçerik" },
+    { "key": "anonymous_news", "label": "Anonim Haber Hesabı" }
+  ],
+  "codes": [
+    {
+      "code": "H1",
+      "group": "H",
+      "label": "Eski içeriğin güncel sunulması",
+      "description": "Farklı tarihte yaşanmış olayın görüntüsünün güncel olay olarak paylaşılması.",
+      "international_equivalent": "Out-of-context media / recycled content"
+    },
+    {
+      "code": "H2",
+      "group": "H",
+      "label": "Yanlış konumlandırma",
+      "description": "Başka ülke veya şehirde çekilmiş görüntünün yerel olay olarak sunulması.",
+      "international_equivalent": "Misattributed location"
+    },
+    {
+      "code": "H3",
+      "group": "H",
+      "label": "Kaynak gizleme",
+      "description": "Haberin kaynağının sistematik olarak belirtilmemesi.",
+      "international_equivalent": "Source concealment"
+    },
+    {
+      "code": "H4",
+      "group": "H",
+      "label": "Bağlam kırpma",
+      "description": "Görüntünün veya açıklamanın anlamı değiştirecek şekilde eksik bırakılması.",
+      "international_equivalent": "Context stripping / cheapfake"
+    },
+    {
+      "code": "H5",
+      "group": "H",
+      "label": "Yapay zekâ içeriği",
+      "description": "Yapay zekâ ile üretilmiş görselin veya konuşmanın gerçek olarak sunulması.",
+      "international_equivalent": "Synthetic media / AI-generated disinformation"
+    },
+    {
+      "code": "H6",
+      "group": "H",
+      "label": "Doğrulanmamış iddia",
+      "description": "Tek kaynaklı, teyitsiz iddianın kesin haber diliyle verilmesi.",
+      "international_equivalent": "Unverified claim amplification"
+    },
+    {
+      "code": "H7",
+      "group": "H",
+      "label": "Yanıltıcı başlık",
+      "description": "İçerikle örtüşmeyen veya abartılı başlık kullanımı.",
+      "international_equivalent": "Misleading headline"
+    },
+    {
+      "code": "E1",
+      "group": "E",
+      "label": "Tıklama tuzağı",
+      "description": "Merak boşluğu yaratan kasıtlı eksik bilgi.",
+      "international_equivalent": "Clickbait"
+    },
+    {
+      "code": "E2",
+      "group": "E",
+      "label": "Öfke tuzağı",
+      "description": "Tepki çekmek üzere tasarlanmış çerçeveleme.",
+      "international_equivalent": "Ragebait / outrage farming"
+    },
+    {
+      "code": "E3",
+      "group": "E",
+      "label": "Sahte viral etiketi",
+      "description": "\"Viral oldu\", \"gündem oldu\" gibi doğrulanamaz popülerlik iddiası.",
+      "international_equivalent": "False popularity framing"
+    },
+    {
+      "code": "E4",
+      "group": "E",
+      "label": "Yapay soru kalıbı",
+      "description": "Etkileşim almak için içerikle ilgisiz veya gereksiz soru ekleme.",
+      "international_equivalent": "Engagement bait"
+    },
+    {
+      "code": "E5",
+      "group": "E",
+      "label": "Döngüsel yeniden paylaşım",
+      "description": "Aynı içeriğin aylar veya yıllar sonra tekrar yayınlanması.",
+      "international_equivalent": "Content recycling"
+    },
+    {
+      "code": "E6",
+      "group": "E",
+      "label": "Trend istismarı",
+      "description": "İlgisiz içeriğe gündem etiketi eklenmesi.",
+      "international_equivalent": "Trend hijacking / hashtag spam"
+    },
+    {
+      "code": "E7",
+      "group": "E",
+      "label": "Karşılıklı büyütme",
+      "description": "Hesaplar arası koordineli yeniden gönderim, alıntı veya yanıt döngüsü.",
+      "international_equivalent": "Coordinated amplification / coordinated inauthentic behavior (CIB)"
+    },
+    {
+      "code": "I1",
+      "group": "I",
+      "label": "Platformlar arası devşirme",
+      "description": "TikTok, Reels veya Shorts içeriğinin kaynaksız haberleştirilmesi.",
+      "international_equivalent": "Cross-platform content freebooting"
+    },
+    {
+      "code": "I2",
+      "group": "I",
+      "label": "Filigran kaldırma",
+      "description": "Orijinal sahiplik izlerinin silinmesi veya kırpılması.",
+      "international_equivalent": "Watermark removal"
+    },
+    {
+      "code": "I3",
+      "group": "I",
+      "label": "Kaynaksız kullanım",
+      "description": "İçerik üreticisine atıf yapılmaması.",
+      "international_equivalent": "Non-attribution"
+    },
+    {
+      "code": "I4",
+      "group": "I",
+      "label": "Rehin hesap stratejisi",
+      "description": "Telifli içeriğin önce feda edilebilir yan hesaptan paylaşılıp ana hesaptan o hesabın alıntılanması; telif şikâyeti yan hesabı vurur, ana hesap korunur.",
+      "international_equivalent": "Sacrificial account content laundering"
+    },
+    {
+      "code": "I5",
+      "group": "I",
+      "label": "Kimlik izi silme",
+      "description": "Hesap satın alma ve tekrarlanan isim veya tema değişikliğiyle kimlik izinin silinmesi.",
+      "international_equivalent": "Account repurposing / handle churn"
+    }
+  ]
+}

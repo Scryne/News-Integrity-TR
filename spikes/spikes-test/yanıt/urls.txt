@@ -1,0 +1,5 @@
+# S2 probe input — one public X post URL per line.
+# Put this file in spikes/s2-archive/ and run archive_probe.py there.
+# Keep it to 2-3 URLs. Use posts you are already looking at.
+https://x.com/bpthaber/status/2078065685536579776
+https://x.com/CrafterMind/status/2078156154262450467

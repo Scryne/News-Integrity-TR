@@ -1,0 +1,109 @@
+PLAN
+  urls     : 1
+    - https://x.com/bpthaber/status/2078065685536579776
+  services : wayback
+  wayback  : AUTHENTICATED (S3 keys)
+  interval : 60s between external calls
+  UA       : Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36
+  redirects: NOT auto-followed (Location/Refresh observed directly)
+
+========== WAYBACK SPN2 (authenticated S3) :: https://x.com/bpthaber/status/2078065685536579776 ==========
+
+--- [wayback submit] 2026-07-19T19:07:01Z ---
+  request : POST https://web.archive.org/save/
+  status  : 200 OK
+  final   : https://web.archive.org/save/
+  elapsed : 1.21s
+  header  : content-type: application/json
+  header  : content-length: 313
+  header  : server: nginx
+  cookies : set-cookie x1
+  body_len: 313
+  excerpt : {"status":"error","status_ext":"error:blocked-url","message":"We\u2019re currently facing some limitations when it comes to archiving this site. We apologize for any inconvenience this might cause and appreciate your understanding. Please email us at \"info@archive.org\" if you would like to discuss this more."}
+  json    : {'status': 'error', 'status_ext': 'error:blocked-url', 'message': 'We’re currently facing some limitations when it comes to archiving this site. We apologize for any inconvenience this might cause and appreciate your understanding. Please email us at "info@archive.org" if you would like to discuss this more.'}
+
+
+================= PASTE THIS BACK =================
+- wayback        no_job_id      https://x.com/bpthaber/status/2078065685536579776
+    notes       : ['message: We’re currently facing some limitations when it comes to archiving this site. We apologize for any inconvenience this might cause and appreciate your understanding. Please email us at "info@archive.org" if you would like to discuss this more.']
+
+Also tell me:
+  * how many archive.today submits succeeded WITHOUT a challenge (X of N)
+  * any CAPTCHA / Cloudflare 'Just a moment' page you saw
+  * whether 60s spacing felt sufficient or you got throttled/429
+WARNING: these do not look like X post URLs (…/status/<id>):
+    https://example.com/
+
+PLAN
+  urls     : 1
+    - https://example.com/
+  services : wayback
+  wayback  : AUTHENTICATED (S3 keys)
+  interval : 60s between external calls
+  UA       : Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36
+  redirects: NOT auto-followed (Location/Refresh observed directly)
+
+========== WAYBACK SPN2 (authenticated S3) :: https://example.com/ ==========
+
+--- [wayback submit] 2026-07-19T19:07:44Z ---
+  request : POST https://web.archive.org/save/
+  status  : 200 OK
+  final   : https://web.archive.org/save/
+  elapsed : 0.78s
+  header  : content-type: application/json
+  header  : content-length: 291
+  header  : server: nginx
+  cookies : set-cookie x1
+  body_len: 291
+  excerpt : {"status":"error","status_ext":"error:too-many-daily-captures","message":"This URL has been already captured 5 times today, which is a daily limit we have set for that Resource type. Please try again tomorrow. Please email us at \"info@archive.org\" if you would like to discuss this more."}
+  json    : {'status': 'error', 'status_ext': 'error:too-many-daily-captures', 'message': 'This URL has been already captured 5 times today, which is a daily limit we have set for that Resource type. Please try again tomorrow. Please email us at "info@archive.org" if you would like to discuss this more.'}
+
+
+================= PASTE THIS BACK =================
+- wayback        no_job_id      https://example.com/
+    notes       : ['message: This URL has been already captured 5 times today, which is a daily limit we have set for that Resource type. Please try again tomorrow. Please email us at "info@archive.org" if you would like to discuss this more.']
+
+Also tell me:
+  * how many archive.today submits succeeded WITHOUT a challenge (X of N)
+  * any CAPTCHA / Cloudflare 'Just a moment' page you saw
+  * whether 60s spacing felt sufficient or you got throttled/429
+WARNING: these do not look like X post URLs (…/status/<id>):
+    https://example.com/?nit-spn2-confirm=1784488098
+
+PLAN
+  urls     : 1
+    - https://example.com/?nit-spn2-confirm=1784488098
+  services : wayback
+  wayback  : AUTHENTICATED (S3 keys)
+  interval : 60s between external calls
+  UA       : Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36
+  redirects: NOT auto-followed (Location/Refresh observed directly)
+
+========== WAYBACK SPN2 (authenticated S3) :: https://example.com/?nit-spn2-confirm=1784488098 ==========
+
+--- [wayback submit] 2026-07-19T19:08:19Z ---
+  request : POST https://web.archive.org/save/
+  status  : 200 OK
+  final   : https://web.archive.org/save/
+  elapsed : 1.01s
+  header  : content-type: application/json
+  header  : content-length: 115
+  header  : server: nginx
+  cookies : set-cookie x1
+  body_len: 115
+  excerpt : {"url":"https://example.com/?nit-spn2-confirm=1784488098","job_id":"spn2-716f8156635f7118b88c868caf6dddee89dafd90"}
+  json    : {'url': 'https://example.com/?nit-spn2-confirm=1784488098', 'job_id': 'spn2-716f8156635f7118b88c868caf6dddee89dafd90'}
+  job_id  : spn2-716f8156635f7118b88c868caf6dddee89dafd90 -- polling status/spn2-716f8156635f7118b88c868caf6dddee89dafd90
+  poll 0: status=pending 
+  poll 1: status=success 
+  archive_url: https://web.archive.org/web/20260719190822/https://example.com/?nit-spn2-confirm=1784488098
+
+
+================= PASTE THIS BACK =================
+- wayback        done           https://example.com/?nit-spn2-confirm=1784488098
+    archive_url : https://web.archive.org/web/20260719190822/https://example.com/?nit-spn2-confirm=1784488098
+
+Also tell me:
+  * how many archive.today submits succeeded WITHOUT a challenge (X of N)
+  * any CAPTCHA / Cloudflare 'Just a moment' page you saw
+  * whether 60s spacing felt sufficient or you got throttled/429

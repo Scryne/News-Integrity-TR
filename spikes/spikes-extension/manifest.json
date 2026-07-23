@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "NIT Spikes helper — S1+S2+S3 (THROWAWAY)",
+  "version": "0.1.0",
+  "description": "THROWAWAY Phase-0 spike helper. One panel on x.com: run the S1 rest_id probe, collect S2 archive URLs (real probe stays in Python), and do S3 captureVisibleTab+crop. Not production.",
+  "permissions": ["downloads", "storage"],
+  "host_permissions": ["https://x.com/*", "https://twitter.com/*", "<all_urls>"],
+  "background": { "service_worker": "background.js" },
+  "content_scripts": [
+    {
+      "matches": ["https://x.com/*", "https://twitter.com/*"],
+      "js": ["probe-main.js"],
+      "run_at": "document_idle",
+      "world": "MAIN"
+    },
+    {
+      "matches": ["https://x.com/*", "https://twitter.com/*"],
+      "js": ["panel.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

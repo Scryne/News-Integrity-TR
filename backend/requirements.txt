@@ -1,0 +1,10 @@
+# News Integrity TR — backend runtime dependencies.
+# Python 3.12. Stack per ADR-003: sync FastAPI + SQLite + SQLAlchemy 2.0 + Alembic.
+
+fastapi>=0.115
+uvicorn[standard]>=0.30
+sqlalchemy>=2.0            # ADR-003: SQLAlchemy 2.0 style; SQLite (WAL, FK on) in T2
+alembic>=1.13             # ADR-003: migrations from day one (migration 001 in T2)
+pydantic-settings>=2.4    # app/config.py
+python-multipart>=0.0.9   # required by POST /api/captures multipart form (T6)
+httpx>=0.27               # archive adapters (Phase 3) + FastAPI TestClient (T7)

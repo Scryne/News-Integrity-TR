@@ -1,0 +1,112 @@
+C:\Users\scryn\OneDrive\Belgeler\Projeler\News_Integrity_TR\spikes\s2-archive>python archive_probe.py --urls-file urls.txt --only archive_today
+PLAN
+  urls     : 3
+    - https://x.com/bpthaber/status/2078065685536579776
+    - https://x.com/CrafterMind/status/2078156154262450467
+    - https://x.com/sama/status/2077817060068057493
+  services : archive_today
+  interval : 60s between external calls
+  UA       : Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36
+  redirects: NOT auto-followed (Location/Refresh observed directly)
+
+========== ARCHIVE.TODAY :: https://x.com/bpthaber/status/2078065685536579776 ==========
+
+--- [archive.today homepage GET] 2026-07-18T18:51:11Z ---
+  request : GET https://archive.md/
+  status  : 200 OK
+  final   : https://archive.md/
+  elapsed : 0.27s
+  header  : content-type: text/html;charset=utf-8
+  header  : content-length: 6198
+  header  : server: nginx
+  cookies : set-cookie x1
+  body_len: 16555
+  excerpt : <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><html style="background-color:#FFFAE1"><!--nocache--><!--95.70.153.129--><!--Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36--><head><!--304734bb1c086c3453b387400cf83f11 --><title>Webpage archive</title><meta http-equiv="content-type" content="text/html; charset=utf-8"/><meta name="keywords" content="web archive, internet cache, google cache, cached pages, cached page, cached view, cache, cached version, saved version, web search,
+
+--- [archive.today submit] 2026-07-18T18:51:11Z ---
+  request : POST https://archive.md/submit/
+  status  : 429 Too Many Requests
+  final   : https://archive.md/submit/
+  elapsed : 0.15s
+  header  : content-type: text/html
+  header  : content-length: 55511
+  header  : server: nginx
+  cookies : set-cookie x1
+  !! challenge markers: ['captcha', 'recaptcha']
+  body_len: 55511
+  excerpt : <!DOCTYPE html> <html> <head> <meta http-equiv="Content-Type" content="text/html;charset=utf-8" /> <meta content="width=device-width, initial-scale=1, minimal-ui" name="viewport" /> <title>archive.md</title> </head> <!-- 95.70.153.129 @ AS12735 --> <!-- archive.md --> <!-- inc8 --> <!-- inc8 --> <!-- 304734bb1c086c3453b387400cf83f11 --> <!-- Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36 --> <!-- A22 --> <body style="margin:0"> <div lang="en-US" style="overflow-x:visible;overflow-y:visible;color:rgb(0, 0, 0);-webkit-locale:&quot;
+  -> status: challenge  archive_url: None
+
+... politeness sleep 60s ...
+
+========== ARCHIVE.TODAY :: https://x.com/CrafterMind/status/2078156154262450467 ==========
+
+--- [archive.today homepage GET] 2026-07-18T18:52:12Z ---
+  request : GET https://archive.md/
+  status  : 200 OK
+  final   : https://archive.md/
+  elapsed : 0.21s
+  header  : content-type: text/html;charset=utf-8
+  header  : content-length: 6198
+  header  : server: nginx
+  cookies : set-cookie x1
+  body_len: 16555
+  excerpt : <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><html style="background-color:#FFFAE1"><!--nocache--><!--95.70.153.129--><!--Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36--><head><!--304734bb1c086c3453b387400cf83f11 --><title>Webpage archive</title><meta http-equiv="content-type" content="text/html; charset=utf-8"/><meta name="keywords" content="web archive, internet cache, google cache, cached pages, cached page, cached view, cache, cached version, saved version, web search,
+
+--- [archive.today submit] 2026-07-18T18:52:12Z ---
+  request : POST https://archive.md/submit/
+  status  : 429 Too Many Requests
+  final   : https://archive.md/submit/
+  elapsed : 0.22s
+  header  : content-type: text/html
+  header  : content-length: 55511
+  header  : server: nginx
+  cookies : set-cookie x1
+  !! challenge markers: ['captcha', 'recaptcha']
+  body_len: 55511
+  excerpt : <!DOCTYPE html> <html> <head> <meta http-equiv="Content-Type" content="text/html;charset=utf-8" /> <meta content="width=device-width, initial-scale=1, minimal-ui" name="viewport" /> <title>archive.md</title> </head> <!-- 95.70.153.129 @ AS12735 --> <!-- archive.md --> <!-- inc8 --> <!-- inc8 --> <!-- 304734bb1c086c3453b387400cf83f11 --> <!-- Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36 --> <!-- A22 --> <body style="margin:0"> <div lang="en-US" style="overflow-x:visible;overflow-y:visible;color:rgb(0, 0, 0);-webkit-locale:&quot;
+  -> status: challenge  archive_url: None
+
+... politeness sleep 60s ...
+
+========== ARCHIVE.TODAY :: https://x.com/sama/status/2077817060068057493 ==========
+
+--- [archive.today homepage GET] 2026-07-18T18:53:12Z ---
+  request : GET https://archive.md/
+  status  : 200 OK
+  final   : https://archive.md/
+  elapsed : 0.20s
+  header  : content-type: text/html;charset=utf-8
+  header  : content-length: 6198
+  header  : server: nginx
+  cookies : set-cookie x1
+  body_len: 16555
+  excerpt : <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><html style="background-color:#FFFAE1"><!--nocache--><!--95.70.153.129--><!--Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36--><head><!--304734bb1c086c3453b387400cf83f11 --><title>Webpage archive</title><meta http-equiv="content-type" content="text/html; charset=utf-8"/><meta name="keywords" content="web archive, internet cache, google cache, cached pages, cached page, cached view, cache, cached version, saved version, web search,
+
+--- [archive.today submit] 2026-07-18T18:53:12Z ---
+  request : POST https://archive.md/submit/
+  status  : 429 Too Many Requests
+  final   : https://archive.md/submit/
+  elapsed : 0.20s
+  header  : content-type: text/html
+  header  : content-length: 55511
+  header  : server: nginx
+  cookies : set-cookie x1
+  !! challenge markers: ['captcha', 'recaptcha']
+  body_len: 55511
+  excerpt : <!DOCTYPE html> <html> <head> <meta http-equiv="Content-Type" content="text/html;charset=utf-8" /> <meta content="width=device-width, initial-scale=1, minimal-ui" name="viewport" /> <title>archive.md</title> </head> <!-- 95.70.153.129 @ AS12735 --> <!-- archive.md --> <!-- inc8 --> <!-- inc8 --> <!-- 304734bb1c086c3453b387400cf83f11 --> <!-- Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36 --> <!-- A22 --> <body style="margin:0"> <div lang="en-US" style="overflow-x:visible;overflow-y:visible;color:rgb(0, 0, 0);-webkit-locale:&quot;
+  -> status: challenge  archive_url: None
+
+
+================= PASTE THIS BACK =================
+- archive_today  challenge      https://x.com/bpthaber/status/2078065685536579776
+    challenge   : ['captcha', 'recaptcha']
+- archive_today  challenge      https://x.com/CrafterMind/status/2078156154262450467
+    challenge   : ['captcha', 'recaptcha']
+- archive_today  challenge      https://x.com/sama/status/2077817060068057493
+    challenge   : ['captcha', 'recaptcha']
+
+Also tell me:
+  * how many archive.today submits succeeded WITHOUT a challenge (X of N)
+  * any CAPTCHA / Cloudflare 'Just a moment' page you saw
+  * whether 60s spacing felt sufficient or you got throttled/429

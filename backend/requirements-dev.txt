@@ -1,0 +1,4 @@
+# Development / test dependencies. Install with:  pip install -r requirements-dev.txt
+-r requirements.txt
+
+pytest>=8.2               # T7 test suite (backend/tests, tmp data dir)
