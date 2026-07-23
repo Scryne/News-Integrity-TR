@@ -16,8 +16,9 @@ from app.db import Base
 class TaxonomyCode(Base):
     __tablename__ = "taxonomy_codes"
 
-    # 'H1'..'H7', 'E1'..'E7', 'I1'..'I5'. Code is the immutable identifier of
-    # the methodology; the label/description may be refined across versions.
+    # 'H1'..'H8', 'E1'..'E7', 'I1'..'I5', 'Y1'..'Y2'. Code is the immutable
+    # identifier of the methodology; the label/description may be refined across
+    # versions.
     code: Mapped[str] = mapped_column(String, primary_key=True)
     group_prefix: Mapped[str] = mapped_column(String, nullable=False)
     label: Mapped[str] = mapped_column(String, nullable=False)
@@ -26,8 +27,9 @@ class TaxonomyCode(Base):
     international_equivalent: Mapped[str | None] = mapped_column(Text)
 
     __table_args__ = (
+        # Y = "Yayın Sonrası Bütünlük" axis added in taxonomy v1.1 (ADR-027).
         CheckConstraint(
-            "group_prefix IN ('H','E','I')", name="ck_taxonomy_codes_group_prefix"
+            "group_prefix IN ('H','E','I','Y')", name="ck_taxonomy_codes_group_prefix"
         ),
     )
 

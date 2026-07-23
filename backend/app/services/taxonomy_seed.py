@@ -14,9 +14,10 @@ Because the operation only inserts-or-updates and never deletes, it is safe to
 run on every startup: repeated runs converge to the file's labels and leave row
 counts stable once seeded (the T3 idempotency guarantee).
 
-``group_prefix`` is pre-validated against the migration-001 CHECK domain
-(``'H','E','I'``) so a malformed file fails loudly here with an actionable
-message instead of as an opaque ``IntegrityError`` mid-transaction.
+``group_prefix`` is pre-validated against the ``taxonomy_codes`` CHECK domain
+(``'H','E','I','Y'`` after migration 0002 / ADR-027) so a malformed file fails
+loudly here with an actionable message instead of as an opaque ``IntegrityError``
+mid-transaction.
 """
 
 from __future__ import annotations
@@ -37,10 +38,11 @@ logger = logging.getLogger("news_integrity")
 REPO_ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_TAXONOMY_PATH = REPO_ROOT / "taxonomy.json"
 
-# Mirror of the migration-001 / models.taxonomy CHECK. Kept as a literal so a
-# file carrying an out-of-domain prefix is rejected here, before it reaches the
-# DB constraint, with a message that names the offending code.
-GROUP_PREFIX_DOMAIN = frozenset({"H", "E", "I"})
+# Mirror of the taxonomy_codes CHECK (widened by migration 0002 for the Y axis,
+# ADR-027). Kept as a literal so a file carrying an out-of-domain prefix is
+# rejected here, before it reaches the DB constraint, with a message that names
+# the offending code.
+GROUP_PREFIX_DOMAIN = frozenset({"H", "E", "I", "Y"})
 
 
 class TaxonomySeedError(RuntimeError):

@@ -235,8 +235,8 @@ CREATE TABLE handle_history (
 -- currently seeded version is what gets stamped onto evidence rows
 -- (evidence.taxonomy_version) at coding time.
 CREATE TABLE taxonomy_codes (
-    code                      TEXT PRIMARY KEY,   -- 'H1'..'H7', 'E1'..'E7', 'I1'..'I5'
-    group_prefix              TEXT NOT NULL CHECK (group_prefix IN ('H','E','I')),
+    code                      TEXT PRIMARY KEY,   -- 'H1'..'H8', 'E1'..'E7', 'I1'..'I5', 'Y1'..'Y2'
+    group_prefix              TEXT NOT NULL CHECK (group_prefix IN ('H','E','I','Y')),  -- 'Y' added in v1.1 (ADR-027)
     label                     TEXT NOT NULL,
     description               TEXT,
     international_equivalent  TEXT                -- terminology mapping used by the EN report
