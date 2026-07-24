@@ -181,7 +181,7 @@ Rules (also enforced by the `evidence-integrity` skill):
   "follower_count_at_capture": 48213,
   "category": "news",
   "codes": ["H2", "E1"],
-  "taxonomy_version": "1.0",
+  "taxonomy_version": "1.1",
   "note": "…",
   "capture_source": "extension",
   "crop_failed": false,
@@ -192,6 +192,8 @@ Rules (also enforced by the `evidence-integrity` skill):
   "extraction": {"rest_id_method": "react-fiber", "extractor_version": "1.0.0"}
 }
 ```
+
+`taxonomy_version` is **stamped server-side** from the codebook version currently seeded out of `taxonomy.json` at the moment codes are attached (ADR-017) — the extension never supplies it. The example shows **`"1.1"`**, the version shipped with the `Y` axis + `H8` (ADR-027); evidence coded earlier keeps the `"1.0"` it was stamped with, so this field is a per-row audit of *which* codebook coded each item, not a global constant.
 
 Archive links are **not** in the sidecar — they arrive later and the sidecar is immutable. They live in `archive_jobs` and appear in exports (case-file, manifest report).
 

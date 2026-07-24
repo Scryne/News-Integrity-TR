@@ -1,9 +1,10 @@
 {
-  "version": "1.0",
+  "version": "1.1",
   "groups": {
     "H": "Haber Manipülasyonu",
     "E": "Etkileşim Manipülasyonu",
-    "I": "İçerik İstismarı"
+    "I": "İçerik İstismarı",
+    "Y": "Yayın Sonrası Bütünlük"
   },
   "categories": [
     { "key": "news", "label": "Haber Sayfası" },
@@ -61,6 +62,13 @@
       "label": "Yanıltıcı başlık",
       "description": "İçerikle örtüşmeyen veya abartılı başlık kullanımı.",
       "international_equivalent": "Misleading headline"
+    },
+    {
+      "code": "H8",
+      "group_prefix": "H",
+      "label": "Yanlış atıf",
+      "description": "Bir söz, görsel, video veya belgenin gerçekte ait olmadığı kişi veya kuruma atfedilmesi.",
+      "international_equivalent": "False attribution"
     },
     {
       "code": "E1",
@@ -145,6 +153,20 @@
       "label": "Kimlik izi silme",
       "description": "Hesap satın alma ve tekrarlanan isim veya tema değişikliğiyle kimlik izinin silinmesi.",
       "international_equivalent": "Account repurposing / handle churn"
+    },
+    {
+      "code": "Y1",
+      "group_prefix": "Y",
+      "label": "Bildirimsiz değiştirme",
+      "description": "Yayımlanmış içeriğin sonradan bildirimsiz değiştirilmesi; ister yerinde düzenlemeyle ister silinip değiştirilmiş hâliyle yeniden paylaşılarak olsun; en az iki farklı zamanda alınmış yakalama ile ispatlanır.",
+      "international_equivalent": "Stealth correction / silent edit"
+    },
+    {
+      "code": "Y2",
+      "group_prefix": "Y",
+      "label": "Bildirimsiz silme",
+      "description": "Yayımlanmış içeriğin, yerine eşdeğeri konmadan bildirimsiz kaldırılması; yalnız aracın yayındayken alınmış bir yakalaması bulunan gönderiler için kodlanır (anlık yazım-hatası silmeleri hariç); en az iki farklı zamanda alınmış yakalama ile ispatlanır.",
+      "international_equivalent": "Undisclosed deletion / unpublishing"
     }
   ]
 }
