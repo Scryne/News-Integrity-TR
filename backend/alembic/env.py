@@ -17,9 +17,9 @@ from alembic import context
 # backend/alembic/env.py, so its grandparent is the backend/ package root.
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from app.config import get_settings  # noqa: E402
-from app.db import Base, build_engine  # noqa: E402
-import app.models  # noqa: E402,F401  (registers all 8 tables on Base.metadata)
+import app.models  # noqa: F401  (registers all 8 tables on Base.metadata)
+from app.config import get_settings
+from app.db import Base, build_engine
 
 config = context.config
 if config.config_file_name is not None:

@@ -5,7 +5,7 @@
 > `ScryneOS/🎯 100-Command-Center/Kapanis-Standardi.md`
 
 **Ölçüm tarihi:** 2026-08-27
-**Tek cümle:** **En erken aşamadaki proje.** Phase 0 spike'ları bitmemiş, sıfır test, GitHub reposu yok.
+**Tek cümle:** **En erken aşamadaki proje.** Phase 0 spike'ları bitmemiş, sıfır test. Kod private `Scryne/News-Integrity-TR`'de (2026-08-29'dan beri).
 
 ## Ne çalışıyor
 
@@ -19,7 +19,7 @@
 ## Ne çalışmıyor / doğrulanmadı
 
 - **Sıfır test dosyası** ve `.venv` içinde **pytest kurulu değil** — test altyapısı hiç yok.
-- **GitHub reposu YOK.** `git remote` boş; kod yalnız bu makinede.
+- ~~GitHub reposu yok~~ → 2026-08-29'da private `Scryne/News-Integrity-TR` açıldı, `main` push'lu (2026-10-26 denetimi).
 - Spike **S2** (archive.today gönderim davranışı) ve **S3** (captureVisibleTab kırpma
   geometrisi) açık. Kendi kuralı: "üç spike'ın da go/no-go kararı verilmeden üretim kodu yazılmaz."
 - Chrome MV3 eklentisi tarafı başlamamış.
@@ -30,4 +30,4 @@ Phase 0'ın 1/3'ü bitmiş. Üretim kodu kendi kuralına göre henüz başlayama
 
 ## Sonraki adım
 
-**Önce GitHub reposu aç ve push et** — bu proje şu an tek kopyada duruyor.
+Proje bırakıldı (Proje Envanteri). Dönülürse: S2 ve S3 spike'larının go/no-go kararı, sonra test altyapısı.

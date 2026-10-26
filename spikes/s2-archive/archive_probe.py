@@ -30,7 +30,7 @@ import os
 import re
 import sys
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 try:
     import httpx
@@ -48,11 +48,11 @@ CHALLENGE_MARKERS = [
     "just a moment", "attention required", "please verify",
     "verify you are human", "enable javascript and cookies",
 ]
-X_POST_RE = re.compile(r"^https?://(x\.com|twitter\.com)/[^/]+/status/\d+", re.I)
+X_POST_RE = re.compile(r"^https?://(x\.com|twitter\.com)/[^/]+/status/\d+", re.IGNORECASE)
 
 
 def now_iso() -> str:
-    return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    return datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
 def detect_challenge(text: str) -> list[str]:
@@ -60,7 +60,7 @@ def detect_challenge(text: str) -> list[str]:
     return [m for m in CHALLENGE_MARKERS if m in low]
 
 
-def log_response(tag: str, resp: "httpx.Response", body_excerpt: int = 600) -> list[str]:
+def log_response(tag: str, resp: httpx.Response, body_excerpt: int = 600) -> list[str]:
     print(f"\n--- [{tag}] {now_iso()} ---")
     print(f"  request : {resp.request.method} {resp.request.url}")
     print(f"  status  : {resp.status_code} {resp.reason_phrase}")
@@ -89,7 +89,7 @@ def log_response(tag: str, resp: "httpx.Response", body_excerpt: int = 600) -> l
     return ch
 
 
-def probe_wayback(client: "httpx.Client", url: str, poll_times: int = 6,
+def probe_wayback(client: httpx.Client, url: str, poll_times: int = 6,
                   poll_interval: float = 6.0, auth: dict | None = None) -> dict:
     mode = "authenticated S3" if auth else "anonymous"
     print(f"\n========== WAYBACK SPN2 ({mode}) :: {url} ==========")
@@ -151,7 +151,7 @@ def probe_wayback(client: "httpx.Client", url: str, poll_times: int = 6,
     return result
 
 
-def probe_archive_today(client: "httpx.Client", url: str) -> dict:
+def probe_archive_today(client: httpx.Client, url: str) -> dict:
     print(f"\n========== ARCHIVE.TODAY :: {url} ==========")
     result = {"service": "archive_today", "url": url, "archive_url": None,
               "status": "unknown", "challenge": [], "notes": []}
@@ -271,7 +271,7 @@ def main() -> None:
 
     print("\n\n================= PASTE THIS BACK =================")
     for r in results:
-        print(f"- {r['service']:<14} {str(r.get('status')):<14} {r['url']}")
+        print(f"- {r['service']:<14} {r.get('status')!s:<14} {r['url']}")
         if r.get("archive_url"):
             print(f"    archive_url : {r['archive_url']}")
         if r.get("challenge"):

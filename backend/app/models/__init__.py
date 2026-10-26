@@ -12,11 +12,11 @@ from app.models.taxonomy import Category, TaxonomyCode
 
 __all__ = [
     "Account",
-    "HandleHistory",
-    "TaxonomyCode",
+    "ArchiveJob",
     "Category",
+    "Edge",
     "Evidence",
     "EvidenceCode",
-    "Edge",
-    "ArchiveJob",
+    "HandleHistory",
+    "TaxonomyCode",
 ]
