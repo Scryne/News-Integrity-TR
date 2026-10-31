@@ -4,14 +4,10 @@ Settings are read from ``NIT_``-prefixed environment variables and an optional
 ``.env`` file in the backend working directory. See ARCHITECTURE.md §9 for the
 full documented config table.
 
-Scope note (Phase 1 / T1): only the foundational and security-boundary settings
-are declared here. The archive-worker settings from ARCHITECTURE §9
-(``NIT_ARCHIVE_MAX_ATTEMPTS``, the per-service min intervals, and the Wayback
-SPN2 S3 keys) are intentionally deferred to Phase 3, when the worker is built.
-This also avoids prematurely resolving the §9-vs-ADR-024 naming drift on the
-Wayback key env vars (``NIT_WAYBACK_S3_ACCESS`` vs ``NIT_WAYBACK_S3_ACCESSKEY``);
-that is decided when Phase 3 wires the adapter. ``extra="ignore"`` below means a
-``.env`` already carrying those vars will not break startup.
+Wayback key names: ADR-024 named them ``NIT_WAYBACK_S3_ACCESSKEY`` /
+``NIT_WAYBACK_S3_SECRET`` while ARCHITECTURE §9 wrote ``NIT_WAYBACK_S3_ACCESS``.
+Phase 3 settles on the ADR-024 names and accepts the §9 spelling as an alias,
+so either ``.env`` works.
 """
 
 from __future__ import annotations
@@ -20,6 +16,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Literal
 
+from pydantic import AliasChoices, Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 # ADR-014: the backend binds to loopback only; the bind host is not configurable.
@@ -35,6 +32,7 @@ class Settings(BaseSettings):
         env_file=".env",
         env_file_encoding="utf-8",
         extra="ignore",
+        populate_by_name=True,
     )
 
     # --- storage -----------------------------------------------------------
@@ -58,15 +56,36 @@ class Settings(BaseSettings):
     # the app logs a prominent startup warning.
     extension_id: str | None = None
 
+    # --- archive worker (ARCHITECTURE §3.4 / §9) ---------------------------
+    # NIT_ARCHIVE_WORKER — run the queue-draining daemon thread in the backend
+    # process. Tests turn it off and drive the worker tick directly.
+    archive_worker: bool = True
+    archive_max_attempts: int = 5
+    archive_today_min_interval_s: float = 45
+    wayback_min_interval_s: float = 60
+    # ADR-024: authenticated SPN2. Never committed; absent keys route Wayback
+    # jobs to manual_pending instead of silently doing nothing.
+    wayback_s3_accesskey: str | None = Field(
+        default=None,
+        validation_alias=AliasChoices("NIT_WAYBACK_S3_ACCESSKEY", "NIT_WAYBACK_S3_ACCESS"),
+    )
+    wayback_s3_secret: str | None = Field(
+        default=None, validation_alias=AliasChoices("NIT_WAYBACK_S3_SECRET")
+    )
+
+    # --- request limits ----------------------------------------------------
+    # A viewport PNG at 4K x 2 dpr is ~10 MB; 25 MB leaves headroom.
+    max_image_bytes: int = 25 * 1024 * 1024
+
     # --- derived paths (ARCHITECTURE §4.1 layout) --------------------------
     @property
     def db_path(self) -> Path:
-        """SQLite database file. Engine wiring lands in T2 (app/db.py)."""
+        """SQLite database file."""
         return self.data_dir / "news_integrity.db"
 
     @property
     def evidence_dir(self) -> Path:
-        """Evidence store root: data/evidence/{phase}-{account_id}/ (T5)."""
+        """Evidence store root: data/evidence/{phase}-{account_id}/."""
         return self.data_dir / "evidence"
 
     # --- CORS (ADR-021) ----------------------------------------------------

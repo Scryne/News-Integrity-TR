@@ -52,6 +52,10 @@ class Evidence(Base):
     screenshot_sha256: Mapped[str | None] = mapped_column(String)
     viewport_path: Mapped[str | None] = mapped_column(String)  # NULL when crop_failed
     viewport_sha256: Mapped[str | None] = mapped_column(String)
+    # ADR-029 (migration 0003): the write-once sidecar and its disk-verified
+    # hash, so the manifest can verify sidecars like images.
+    sidecar_path: Mapped[str | None] = mapped_column(String)
+    sidecar_sha256: Mapped[str | None] = mapped_column(String)
     created_at: Mapped[str] = mapped_column(String, nullable=False)
 
     __table_args__ = (

@@ -253,3 +253,36 @@ Findings:
 - Coverage note carried forward: the combined helper manifest ships `<all_urls>`
   pre-added, so whether x.com-only `host_permissions` suffice for
   `captureVisibleTab` is still not exercised. Not blocking; carry into build.
+### Addendum — automated geometry + permission re-run (2026-10-31, Claude-executed)
+
+Provenance: Claude-executed in-session (Scryne handed over the project, 2026-10-31), not a
+Scryne paste-back. Harness: Playwright driving **Edge 156** with a copy of this spike's
+`background.js` loaded unpacked; a local test page (cyan background, 600 CSS px articles with a
+3 px magenta border) so alignment is measured, not eyeballed: per crop, the magenta run length
+on each edge and the count of background (cyan) pixels on the crop border. Matrix: Windows
+scale 1.0/1.25/1.5 (`--force-device-scale-factor`) × browser zoom 90/100/110 % × {fully visible,
+half off the top, partly below the fold}.
+
+- **Closes the carried-forward coverage note: site-scoped `host_permissions` do NOT suffice.**
+  With `host_permissions` for the page's own origin only, every `captureVisibleTab` call failed:
+  `Either the '<all_urls>' or 'activeTab' permission is required.` Adding `activeTab` alone
+  also fails when the capture is triggered from a content-script button (no user gesture on the
+  extension surface grants it). Build constraint for Phase 2 (→ ADR-028): either ship
+  `<all_urls>` in `host_permissions`, or obtain `activeTab` from an extension-surface gesture
+  (toolbar action / keyboard command) before in-page buttons can capture.
+- **The July width-only check could not see a 1 px shift.** The spike rounds origin and size
+  independently (`round(x·dpr)`, `round(w·dpr)`). On the pixel-border check this left the left
+  edge one device pixel off (a 1 px background column in the crop) at dpr 1.1, 1.375 and 1.65,
+  while the width still equalled `round(w·dpr)`.
+- **Fix: round the edges, not the size** — `sx = round(x·dpr)`, `sw = round((x+w)·dpr) − sx`
+  (same for y/h). Result: 0 background pixels on the crop border in 13 of 14 non-empty
+  combinations (all of 1.25 and 1.5 scaling, incl. zoom 110 %). Residual: scale 1.0 × zoom
+  110 % still shows a 1 px background column on the left edge (Chromium snaps that fractional
+  edge differently). floor/ceil was measured too and is worse (bleeds 1 px on every
+  fractional edge). Consequence: the viewport PNG stays the evidence of record; the crop is a
+  derived convenience and may carry ≤1 device px of surrounding page — never lose post pixels.
+- Partially visible posts clamp correctly (`clamped=true`); a post entirely outside the
+  viewport yields `empty crop after clamp` → this is the `crop_failed` path, as designed.
+
+Verdict unchanged: **GO**, with the two build constraints above.
+

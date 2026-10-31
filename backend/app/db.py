@@ -2,16 +2,19 @@
 
 ADR-003: sync SQLAlchemy 2.0 over SQLite. Every connection gets WAL,
 foreign_keys=ON and busy_timeout via a connect-event listener (ARCHITECTURE §5).
-This module owns the engine and the declarative Base only; ORM models live in
-app.models and schema migrations in alembic/. No query or write logic here —
-that is T4-T6.
+This module owns engine construction and the declarative Base only; ORM models
+live in app.models and schema migrations in alembic/.
+
+There is deliberately no module-level engine: the app builds one per
+``create_app(settings)`` (stored on ``app.state``), so tests run against a
+temporary data dir and importing the package never touches the real DB.
 """
 
 from __future__ import annotations
 
 from sqlalchemy import create_engine, event
 from sqlalchemy.engine import Engine
-from sqlalchemy.orm import DeclarativeBase, sessionmaker
+from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
 
 from app.config import Settings, get_settings
 
@@ -37,11 +40,20 @@ def _set_sqlite_pragmas(dbapi_connection, connection_record) -> None:
 
 
 def build_engine(settings: Settings | None = None) -> Engine:
-    """Create the SQLite engine, ensuring the data dir exists first."""
+    """Create the SQLite engine, ensuring the data dir exists first.
+
+    ``check_same_thread=False``: the archive worker thread and the request
+    threads each open their own sessions on the shared pool; SQLite itself
+    serializes writers (busy_timeout above).
+    """
     settings = settings or get_settings()
     settings.data_dir.mkdir(parents=True, exist_ok=True)
-    return create_engine(f"sqlite:///{settings.db_path.as_posix()}", echo=False)
+    return create_engine(
+        f"sqlite:///{settings.db_path.as_posix()}",
+        echo=False,
+        connect_args={"check_same_thread": False},
+    )
 
 
-engine = build_engine()
-SessionLocal = sessionmaker(bind=engine, autoflush=False, expire_on_commit=False)
+def make_session_factory(engine: Engine) -> sessionmaker[Session]:
+    return sessionmaker(bind=engine, autoflush=False, expire_on_commit=False)

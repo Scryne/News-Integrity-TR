@@ -22,7 +22,7 @@ from app.config import get_settings
 from app.db import Base, build_engine
 
 config = context.config
-if config.config_file_name is not None:
+if config.config_file_name is not None and "connection" not in config.attributes:
     fileConfig(config.config_file_name)
 
 target_metadata = Base.metadata
@@ -41,16 +41,26 @@ def run_migrations_offline() -> None:
         context.run_migrations()
 
 
+def _run_on(connection) -> None:
+    context.configure(
+        connection=connection,
+        target_metadata=target_metadata,
+        render_as_batch=True,
+    )
+    with context.begin_transaction():
+        context.run_migrations()
+
+
 def run_migrations_online() -> None:
+    # app.migrate.upgrade_to_head hands over the app's own connection (startup
+    # and tests); the CLI `alembic upgrade head` builds one from settings.
+    connection = config.attributes.get("connection")
+    if connection is not None:
+        _run_on(connection)
+        return
     connectable = build_engine()
     with connectable.connect() as connection:
-        context.configure(
-            connection=connection,
-            target_metadata=target_metadata,
-            render_as_batch=True,
-        )
-        with context.begin_transaction():
-            context.run_migrations()
+        _run_on(connection)
 
 
 if context.is_offline_mode():

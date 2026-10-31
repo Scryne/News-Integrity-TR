@@ -1,13 +1,12 @@
 """FastAPI application entry point.
 
-Phase 1 / T1 scope: build the app, wire CORS per ADR-021, and expose the
-lifespan hook. No endpoints are registered yet:
+``create_app(settings)`` builds everything the process needs and keeps it on
+``app.state`` — engine, session factory, seeded vocabulary, archive worker — so
+tests can run the real app against a temporary data dir.
 
-  * GET /healthz, GET /api/taxonomy, POST /api/captures  -> T6
-  * idempotent taxonomy + category seeding                -> T3 (lifespan)
-  * archive worker daemon thread                          -> Phase 3 (lifespan)
-
-Each hooks into the marked places below without reshaping this module.
+Startup order (lifespan): schema to Alembic head → idempotent taxonomy seeding
+(ADR-016/017/018; a broken codebook aborts startup) → archive worker thread
+(ADR-008; never awaited by a request).
 """
 
 from __future__ import annotations
@@ -15,44 +14,61 @@ from __future__ import annotations
 import logging
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 
 from app import __version__
 from app.config import BIND_HOST, Settings, get_settings
-from app.db import SessionLocal
-from app.services.taxonomy_seed import TaxonomySeedError, seed_taxonomy
+from app.db import build_engine, make_session_factory
+from app.errors import ApiError
+from app.migrate import upgrade_to_head
+from app.routers.api import router
+from app.services.archive_worker import ArchiveWorker
+from app.services.taxonomy import vocabulary_from
+from app.services.taxonomy_seed import TaxonomySeedError, load_taxonomy, seed_taxonomy
 
 logger = logging.getLogger("news_integrity")
 
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    settings = get_settings()
-    logger.info(
-        "News Integrity TR backend starting (phase=%s, data_dir=%s)",
-        settings.phase,
-        settings.data_dir,
-    )
-    # T3: idempotent taxonomy + category seeding (ADR-016/017/018). One
-    # transaction; upsert labels, never delete codes. A missing/malformed
-    # codebook aborts startup rather than serving an incomplete vocabulary.
-    try:
-        with SessionLocal.begin() as session:
-            seed_taxonomy(session)
-    except TaxonomySeedError:
-        logger.exception(
-            "taxonomy seeding failed — refusing to start with an incomplete "
-            "coding vocabulary; fix taxonomy.json and restart"
-        )
-        raise
-    # Phase 3: the archive worker daemon thread starts here (and stops on exit).
-    yield
-    logger.info("News Integrity TR backend stopped")
-
-
 def create_app(settings: Settings | None = None) -> FastAPI:
     settings = settings or get_settings()
+
+    @asynccontextmanager
+    async def lifespan(app: FastAPI):
+        logger.info(
+            "News Integrity TR backend starting (phase=%s, data_dir=%s)",
+            settings.phase,
+            settings.data_dir,
+        )
+        engine = build_engine(settings)
+        upgrade_to_head(engine)
+        sessions = make_session_factory(engine)
+        try:
+            with sessions.begin() as session:
+                seed_taxonomy(session)
+            vocabulary = vocabulary_from(load_taxonomy())
+        except TaxonomySeedError:
+            logger.exception(
+                "taxonomy seeding failed — refusing to start with an incomplete "
+                "coding vocabulary; fix taxonomy.json and restart"
+            )
+            raise
+        app.state.settings = settings
+        app.state.engine = engine
+        app.state.sessions = sessions
+        app.state.vocabulary = vocabulary
+        worker = ArchiveWorker(sessions, settings)
+        app.state.worker = worker
+        if settings.archive_worker:
+            worker.start()
+        try:
+            yield
+        finally:
+            worker.stop()
+            engine.dispose()
+            logger.info("News Integrity TR backend stopped")
+
     app = FastAPI(
         title="News Integrity TR — Evidence Capture Toolkit",
         version=__version__,
@@ -77,17 +93,22 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             "to lock CORS to that one extension (README setup step, ADR-021)."
         )
 
-    # T6: routers (healthz, taxonomy, captures) are included here.
+    @app.exception_handler(ApiError)
+    async def _api_error(request: Request, exc: ApiError) -> JSONResponse:
+        return JSONResponse(status_code=exc.status_code, content={"detail": exc.detail})
+
+    app.include_router(router)
     return app
 
 
-app = create_app()
+def main() -> None:
+    import uvicorn
+
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
+    settings = get_settings()
+    # ADR-014: loopback only; host is not configurable.
+    uvicorn.run(create_app(settings), host=BIND_HOST, port=settings.port)
 
 
 if __name__ == "__main__":
-    import uvicorn
-
-    logging.basicConfig(level=logging.INFO)
-    _settings = get_settings()
-    # ADR-014: loopback only; host is not configurable.
-    uvicorn.run(app, host=BIND_HOST, port=_settings.port)
+    main()
