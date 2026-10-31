@@ -1,6 +1,6 @@
 # News Integrity TR — Evidence Capture Toolkit: Architecture
 
-**Status:** Approved design, pre-implementation.
+**Status:** Approved design; MVP implemented 2026-10-31 (backend `backend/`, extension `extension/`). Deviations are recorded as ADR-028 and ADR-029.
 **Audience:** Solo developer (you, six months from now).
 **Scope:** MVP only — capture, tag, edge-log, archive, export. Everything else is v2 backlog (see `PLAN.md`).
 
@@ -408,7 +408,7 @@ Manifest (conceptual):
 ```jsonc
 {
   "manifest_version": 3,
-  "host_permissions": ["https://x.com/*", "https://twitter.com/*", "http://127.0.0.1:8765/*"],
+  "host_permissions": ["<all_urls>"],  // ADR-028: captureVisibleTab needs it; SW refuses non-X tabs
   "content_scripts": [{ "matches": ["https://x.com/*", "https://twitter.com/*"], "js": ["content.js"] }],
   "background": { "service_worker": "background.js" }
   // No action popup in MVP. No storage of captured data in the extension.
@@ -451,7 +451,8 @@ The CLI never fetches X. The user assembles URL lists by hand; the archive servi
 | `NIT_ARCHIVE_MAX_ATTEMPTS` | `5` | Per job before escalation |
 | `NIT_ARCHIVE_TODAY_MIN_INTERVAL_S` | `45` | Min seconds between archive.today submissions |
 | `NIT_WAYBACK_MIN_INTERVAL_S` | `60` | Min seconds between Wayback submissions |
-| `NIT_WAYBACK_S3_ACCESS` / `NIT_WAYBACK_S3_SECRET` | unset | Optional SPN2 auth (higher limits) |
+| `NIT_WAYBACK_S3_ACCESSKEY` / `NIT_WAYBACK_S3_SECRET` | unset | SPN2 auth (ADR-024; `NIT_WAYBACK_S3_ACCESS` accepted as an alias). Without keys Wayback jobs go to `manual_pending` |
+| `NIT_ARCHIVE_WORKER` | `true` | Run the archive worker thread in the backend process |
 
 ---
 

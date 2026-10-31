@@ -1,0 +1,21 @@
+{
+  "name": "news-integrity-tr-extension",
+  "version": "0.1.0",
+  "private": true,
+  "description": "News Integrity TR — X kanıt yakalama eklentisi (Chrome/Edge MV3, yerel backend'e yazar)",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "check": "npm run typecheck && npm test && npm run build"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.3.7",
+    "esbuild": "^0.28.2",
+    "jsdom": "^30.1.3",
+    "playwright-core": "^1.64.1",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.5"
+  }
+}
