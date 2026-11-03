@@ -22,6 +22,10 @@ oturum açık bir ilk yakalama ve Gün 7 saha turu.
   **15/15** — backend kapalıyken okunur hata ve "Yeniden dene", doğrulama, kayıt mührü, alıntı kenarı,
   elle rest_id, kenar paneli, manifest doğrulaması, kırpma boyutu = gönderi × dpr, kırpmada panel/düğme
   pikseli 0.
+- **CI** (`.github/workflows/ci.yml`, 2026-11-03): her push ve PR'da iki iş — backend (Python 3.12,
+  `pip install -r requirements-dev.txt`, `pytest -q`) ve eklenti (Node 22, `npm ci`, `npm run check`).
+  Yerelde aynı komutlarla ölçüldü: Python 3.12.3'te **55 geçti**, Node 22'de 26 birim testi + derleme temiz.
+  Uçtan uca (`e2e.mjs`) CI'da yok: gerçek bir Edge/Chrome ister.
 
 ## Doğrulanmadı / bilinen sınırlar
 
