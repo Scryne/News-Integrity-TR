@@ -24,6 +24,7 @@ node_modules/
 dist/
 build-check/
 e2e-out/
+e2e-dist/
 
 # --- OS / editor ---
 .DS_Store
