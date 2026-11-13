@@ -91,10 +91,11 @@ S3 keys) keep the automated path ready for non-X URLs and for the day archive.or
 
 ```bash
 cd backend && .venv/Scripts/python.exe -m pytest -q          # 55 tests: write path, queue, CLI, exports
-cd extension && npm run check                                # typecheck + 26 unit tests + build
-# end to end in a real browser (backend on 8781, fixture x.com page, no network):
-NIT_BACKEND=http://127.0.0.1:8781 npm run build
-node scripts/e2e.mjs --backend http://127.0.0.1:8781 --data <backend data dir> --out e2e-out
+cd extension && npm run check                                # typecheck + 26 unit tests + build into build-check/ (dist/ untouched)
+# end to end in a real browser (backend on 8781, fixture x.com page, no network);
+# a separate output folder keeps the dist/ you have loaded in the browser intact:
+NIT_BACKEND=http://127.0.0.1:8781 NIT_OUT=e2e-dist npm run build
+node scripts/e2e.mjs --backend http://127.0.0.1:8781 --data <backend data dir> --dist e2e-dist --out e2e-out
 ```
 
 Not yet verified: a capture on live x.com with a logged-in session (the extractor fixtures are synthetic,

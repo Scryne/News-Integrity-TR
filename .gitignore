@@ -22,6 +22,8 @@ venv/
 # --- node / extension build (monorepo) ---
 node_modules/
 dist/
+build-check/
+e2e-out/
 
 # --- OS / editor ---
 .DS_Store

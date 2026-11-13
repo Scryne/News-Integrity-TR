@@ -4,6 +4,7 @@
 //   1. backend:   cd backend && NIT_DATA_DIR=<tmp> NIT_PORT=8766 python -m app.main
 //   2. build:     NIT_BACKEND=http://127.0.0.1:8766 npm run build
 //   3. run:       node scripts/e2e.mjs --backend http://127.0.0.1:8766 --data <tmp> --out <dir>
+//      (--dist <folder> loads a build made with NIT_OUT=<folder> instead of dist/)
 //
 // x.com is never contacted: every https://x.com/* request is answered by
 // Playwright from the fixture below (synthetic markup, see test/fixtures.ts).
@@ -13,7 +14,7 @@
 import { chromium } from "playwright-core";
 import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { dirname, join } from "node:path";
+import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { inflateSync } from "node:zlib";
 
@@ -21,7 +22,7 @@ const args = Object.fromEntries(
   process.argv.slice(2).reduce((acc, cur, i, all) => (cur.startsWith("--") ? [...acc, [cur.slice(2), all[i + 1]?.startsWith("--") ? "1" : all[i + 1] ?? "1"]] : acc), []),
 );
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-const dist = join(root, "dist");
+const dist = args.dist ? resolve(args.dist) : join(root, "dist");
 const backend = args.backend ?? "http://127.0.0.1:8765";
 const dataDir = args.data;
 const out = args.out ?? join(root, "e2e-out");

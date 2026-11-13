@@ -1,13 +1,18 @@
 // Bundles the extension into dist/ (load dist/ as an unpacked extension).
 // NIT_BACKEND overrides the backend origin (default http://127.0.0.1:8765, ADR-014).
+// `--out <folder>` (or NIT_OUT) overrides the output folder (relative to extension/). `npm run check` builds into
+// build-check/ so a CI-style check never overwrites the dist/ a researcher has loaded,
+// which may be built for another port (2026-11-13: check reset a local 8770 build to 8765).
 import { build } from "esbuild";
 import { copyFileSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
-import { dirname, join } from "node:path";
+import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { deflateSync } from "node:zlib";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-const dist = join(root, "dist");
+const outIdx = process.argv.indexOf("--out");
+const outName = (outIdx > -1 ? process.argv[outIdx + 1] : undefined) ?? process.env.NIT_OUT ?? "dist";
+const dist = resolve(root, outName);
 const backend = process.env.NIT_BACKEND ?? "http://127.0.0.1:8765";
 if (!/^http:\/\/127\.0\.0\.1:\d{2,5}$/.test(backend)) {
   throw new Error(`NIT_BACKEND must be http://127.0.0.1:<port> (loopback only, ADR-014), got ${backend}`);
@@ -75,4 +80,4 @@ function icon(size) {
   ]);
 }
 for (const size of [16, 48, 128]) writeFileSync(join(dist, "icons", `icon-${size}.png`), icon(size));
-console.log(`dist/ ready (backend ${backend})`);
+console.log(`${outName}/ ready (backend ${backend})`);
