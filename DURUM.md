@@ -3,7 +3,7 @@
 > **Ne bu dosya:** sertifika değil **envanter**. Ölçülen gerçek durum; "doğrulanmadı" yazan satır kusur değil, kayıt.
 > Kapanış standardı: `ScryneOS/🎯 100-Command-Center/Kapanis-Standardi.md`
 
-**Ölçüm tarihi:** 2026-10-31
+**Ölçüm tarihi:** 2026-11-13 (önceki: 2026-10-31)
 **Tek cümle:** MVP yazıldı (PLAN Faz 0–5): backend yazma yolu, arşiv kuyruğu, CLI, dışa aktarımlar ve
 MV3 eklentisi; gerçek tarayıcıda fixture x.com sayfasıyla uçtan uca sınandı. Kalan tek şey canlı x.com'da
 oturum açık bir ilk yakalama ve Gün 7 saha turu.
@@ -26,6 +26,11 @@ oturum açık bir ilk yakalama ve Gün 7 saha turu.
   `pip install -r requirements-dev.txt`, `pytest -q`) ve eklenti (Node 22, `npm ci`, `npm run check`).
   Yerelde aynı komutlarla ölçüldü: Python 3.12.3'te **55 geçti**, Node 22'de 26 birim testi + derleme temiz.
   Uçtan uca (`e2e.mjs`) CI'da yok: gerçek bir Edge/Chrome ister.
+
+- **2026-11-13 denetimi:** `pytest` 55 geçti; `npm run check` (tip + 26 birim + derleme) temiz; `npm audit` 0,
+  `pip-audit` 0; CI son koşular yeşil, açık PR yok. Uçtan uca 15/15 (Edge, temiz veri klasörü). CLI çıktıları açılıp
+  okundu: `export edges` CSV, `export case-file` JSON, `export manifest --verify` (9 dosya eşleşiyor), `archive pending`.
+  Düzeltilen: `npm run check` artık `build-check/`e derler (önceden tarayıcıya yüklü, başka porta derlenmiş `dist/`i ezip 8765'e döndürüyordu); başarı ekranı mührün yanında kaydedilen kategori ve kodları gösterir.
 
 ## Doğrulanmadı / bilinen sınırlar
 
