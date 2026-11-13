@@ -87,6 +87,11 @@ legend .mono { color: var(--text-3); }
 .notice.danger strong { color: var(--danger); }
 .notice.danger button { justify-self: start; }
 .skeleton { padding: 24px 12px; color: var(--text-3); border: 1px dashed var(--border); border-radius: 6px; text-align: center; }
+.recorded { display: grid; gap: 6px; padding: 12px; background: var(--raised); border: 1px solid var(--border); border-radius: 6px; }
+.recorded .label { color: var(--text-3); font-size: 12px; }
+.recorded-codes { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.recorded-codes li { display: grid; grid-template-columns: 32px 1fr; gap: 8px; color: var(--text-2); }
+.recorded-codes .mono { color: var(--text-1); font-weight: 600; }
 .stamp { display: grid; gap: 4px; padding: 14px; border: 1px solid var(--accent); border-radius: 6px; background: var(--sunken); }
 .stamp-title { font-weight: 600; color: var(--success); }
 .stamp .mono:not(.muted) { font-size: 13px; color: var(--text-1); }

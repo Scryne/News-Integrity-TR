@@ -274,6 +274,28 @@ function stamp(result: Extract<CaptureResponse, { ok: true }>): HTMLElement {
   );
 }
 
+/**
+ * What was written, as the backend received it: category and codes with their labels.
+ * The researcher sees the coding they committed next to the seal, not only a hash
+ * (2026-11-13 review: the success view showed the seal on an otherwise empty panel).
+ */
+function recorded(taxonomy: Taxonomy, categoryKey: string, codes: string[]): HTMLElement {
+  const category = taxonomy.categories.find((c) => c.key === categoryKey)?.label ?? categoryKey;
+  return h(
+    "div",
+    { class: "recorded" },
+    h("p", { class: "label" }, "Kaydedilen kodlama"),
+    h("p", {}, category),
+    h(
+      "ul",
+      { class: "recorded-codes" },
+      ...codes.map((code) =>
+        h("li", {}, h("span", { class: "mono" }, code), h("span", {}, taxonomy.codes.find((c) => c.code === code)?.label ?? "")),
+      ),
+    ),
+  );
+}
+
 async function loadTaxonomy(p: Panel, onReady: (taxonomy: Taxonomy) => void): Promise<void> {
   p.content(h("div", { class: "skeleton", "aria-busy": "true" }, "Kod listesi yükleniyor…"));
   p.actions();
@@ -368,7 +390,7 @@ export function openCaptureOverlay(extraction: Extraction, hooks: CaptureHooks):
         hooks.restore();
       }
       if (response.ok) {
-        p.content(summary(extraction), stamp(response));
+        p.content(summary(extraction), recorded(taxonomy, built.value.category, built.value.codes), stamp(response));
         p.actions(h("button", { class: "primary", type: "button", "data-autofocus": true, onclick: () => p.close() }, "Kapat"));
         p.focusFirst();
         return;
