@@ -77,10 +77,10 @@ def test_bulk_archive_skips_with_reasons(client):
     body = client.post("/api/cli/bulk-archive", json={"account": {"handle": AUTHOR}, "urls": urls}).json()
     assert len(body["created"]) == 1
     reasons = [s["reason"] for s in body["skipped"]]
-    assert reasons[0] == "duplicate in this list"
-    assert reasons[1].startswith("handle mismatch")
-    assert "not an x.com" in reasons[2]
-    assert reasons[3].startswith("already complete")
+    assert reasons[0] == "bu listede tekrar ediyor"
+    assert reasons[1].startswith("hesap uyuşmuyor")
+    assert "bağlantısı değil" in reasons[2]
+    assert reasons[3].startswith("zaten kanıt") and "complete" in reasons[3]
 
 
 def test_bulk_archive_unknown_handle_needs_rest_id(client):

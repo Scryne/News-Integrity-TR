@@ -59,19 +59,19 @@ def bulk_archive(session: Session, settings: Settings, body: BulkArchiveIn) -> d
                 continue
             parsed = parse_status_url(url)
             if parsed is None:
-                skipped.append({"url": url, "reason": "not an x.com/twitter.com /status/ link"})
+                skipped.append({"url": url, "reason": "x.com/twitter.com /status/ bağlantısı değil"})
                 continue
             if parsed.handle.lower() not in handles:
                 skipped.append(
                     {
                         "url": url,
-                        "reason": f"handle mismatch: @{parsed.handle} is not "
-                        f"@{account.current_handle} (or a previous handle)",
+                        "reason": f"hesap uyuşmuyor: @{parsed.handle}, "
+                        f"@{account.current_handle} (ya da önceki bir kullanıcı adı) değil",
                     }
                 )
                 continue
             if parsed.post_id in seen:
-                skipped.append({"url": url, "reason": "duplicate in this list"})
+                skipped.append({"url": url, "reason": "bu listede tekrar ediyor"})
                 continue
             seen.add(parsed.post_id)
             existing = session.scalars(
@@ -81,9 +81,9 @@ def bulk_archive(session: Session, settings: Settings, body: BulkArchiveIn) -> d
             ).first()
             if existing is not None:
                 reason = (
-                    "already pending completion"
+                    "zaten tamamlanmayı bekliyor"
                     if existing.status == "pending_completion"
-                    else f"already {existing.status} as evidence {existing.id}"
+                    else f"zaten kanıt {existing.id} olarak kayıtlı (durum: {existing.status})"
                 )
                 skipped.append({"url": url, "reason": reason, "evidence_id": existing.id})
                 continue

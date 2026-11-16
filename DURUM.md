@@ -32,6 +32,9 @@ oturum açık bir ilk yakalama ve Gün 7 saha turu.
   okundu: `export edges` CSV, `export case-file` JSON, `export manifest --verify` (9 dosya eşleşiyor), `archive pending`.
   Düzeltilen: `npm run check` artık `build-check/`e derler (önceden tarayıcıya yüklü, başka porta derlenmiş `dist/`i ezip 8765'e döndürüyordu); başarı ekranı mührün yanında kaydedilen kategori ve kodları gösterir.
 
+- **2026-11-16:** arşiv işçisi hataları ve toplu bağlantı listesinin atlama gerekçeleri Türkçe (CLI `archive pending`
+  ve API cevabında görünüyordu, İngilizceydi). `pytest` 55 geçti.
+
 ## Doğrulanmadı / bilinen sınırlar
 
 - **Canlı x.com:** çıkarıcı fixture'ları sentetik (S1 çıktısındaki işaretlemeye göre kuruldu). İlk gerçek

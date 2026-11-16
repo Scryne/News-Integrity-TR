@@ -67,8 +67,8 @@ class ArchiveTodayAdapter:
     def route(self, url: str) -> AdapterResult:
         return AdapterResult(
             "manual",
-            error="manual-first (S2/ADR-007): archive.today answers automated submits with "
-            "a CAPTCHA; open the submit page and paste the link back",
+            error="elle arşivle (S2/ADR-007): archive.today otomatik gönderime CAPTCHA ile "
+            "cevap veriyor; gönderim sayfasını açıp arşiv bağlantısını geri yapıştır",
         )
 
     def submit(self, url: str) -> AdapterResult:  # pragma: no cover - never routed here
@@ -107,14 +107,14 @@ class WaybackAdapter:
         if is_x_host(url):
             return AdapterResult(
                 "manual",
-                error="manual-first (ADR-025): SPN2 answers x.com/twitter.com with "
-                "error:blocked-url; archive it in the browser and paste the link back",
+                error="elle arşivle (ADR-025): SPN2 x.com/twitter.com isteklerini "
+                "error:blocked-url ile reddediyor; tarayıcıda arşivleyip bağlantıyı geri yapıştır",
             )
         if self._auth is None:
             return AdapterResult(
                 "manual",
-                error="no SPN2 keys configured (ADR-024: NIT_WAYBACK_S3_ACCESSKEY/SECRET); "
-                "manual-assist instead",
+                error="SPN2 anahtarı tanımlı değil (ADR-024: NIT_WAYBACK_S3_ACCESSKEY/SECRET); "
+                "elle arşivleme yoluna düşüldü",
             )
         return None
 
@@ -128,15 +128,15 @@ class WaybackAdapter:
         try:
             response = self._http().post(self.save_url, data={"url": url}, headers=headers)
         except httpx.HTTPError as exc:
-            return AdapterResult("transient", error=f"SPN2 submit failed: {exc.__class__.__name__}")
+            return AdapterResult("transient", error=f"SPN2 gönderimi başarısız: {exc.__class__.__name__}")
         if response.status_code in (401, 403):
-            return AdapterResult("manual", error=f"SPN2 rejected the keys (HTTP {response.status_code})")
+            return AdapterResult("manual", error=f"SPN2 anahtarları reddetti (HTTP {response.status_code})")
         if response.status_code == 429 or response.status_code >= 500:
             return AdapterResult("transient", error=f"SPN2 HTTP {response.status_code}")
         try:
             body = response.json()
         except ValueError:
-            return AdapterResult("transient", error=f"SPN2 HTTP {response.status_code}, non-JSON body")
+            return AdapterResult("transient", error=f"SPN2 HTTP {response.status_code}, gövde JSON değil")
         job_id = body.get("job_id")
         if not job_id:
             return self._classify(body)
@@ -146,16 +146,16 @@ class WaybackAdapter:
             try:
                 status = self._http().get(self.status_url.format(job_id=job_id), headers=headers).json()
             except (httpx.HTTPError, ValueError) as exc:
-                return AdapterResult("transient", error=f"SPN2 status poll failed: {exc.__class__.__name__}")
+                return AdapterResult("transient", error=f"SPN2 durum sorgusu başarısız: {exc.__class__.__name__}")
             if status.get("status") == "success":
                 timestamp = status.get("timestamp")
                 original = status.get("original_url") or url
                 if not timestamp:
-                    return AdapterResult("transient", error="SPN2 success without timestamp")
+                    return AdapterResult("transient", error="SPN2 başarı dedi ama zaman damgası yok")
                 return AdapterResult("done", archive_url=f"https://web.archive.org/web/{timestamp}/{original}")
             if status.get("status") == "error":
                 return self._classify(status)
-        return AdapterResult("transient", error=f"SPN2 job {job_id} still pending after {self._poll_timeout:.0f}s")
+        return AdapterResult("transient", error=f"SPN2 işi {job_id} {self._poll_timeout:.0f} sn sonra hâlâ bekliyor")
 
     @staticmethod
     def _classify(body: dict) -> AdapterResult:
